@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const Contact = () => {
     const [showModal, setShowModal] = useState(false);
@@ -51,10 +52,10 @@ const Contact = () => {
                                 </div>
                             </a>
 
-                            <a href="https://wa.me/919871852159" target="_blank" rel="noopener noreferrer" className="contact-method">
-                                <i className="fab fa-whatsapp"></i>
+                            <a href="tel:+919871852159" className="contact-method">
+                                <i className="fas fa-phone"></i>
                                 <div>
-                                    <h4>WhatsApp</h4>
+                                    <h4>Phone</h4>
                                     <p>+91 98718 52159</p>
                                 </div>
                             </a>
@@ -69,6 +70,10 @@ const Contact = () => {
                         </div>
 
                         <div className="social-links">
+                            <a href="https://wa.me/919871852159" target="_blank" rel="noopener noreferrer"
+                                className="social-link" aria-label="WhatsApp">
+                                <i className="fab fa-whatsapp"></i>
+                            </a>
                             <a href="https://www.linkedin.com/in/its-ashutosh-pathak" target="_blank" rel="noopener noreferrer"
                                 className="social-link" aria-label="LinkedIn">
                                 <i className="fab fa-linkedin"></i>
@@ -115,16 +120,19 @@ const Contact = () => {
             </div>
 
             {/* Success Modal */}
-            <div className={`modal ${showModal ? 'active' : ''}`} id="successModal">
-                <div className="modal-content">
-                    <div className="modal-icon">
-                        <i className="fas fa-check-circle"></i>
+            {createPortal(
+                <div className={`modal ${showModal ? 'active' : ''}`} id="successModal">
+                    <div className="modal-content">
+                        <div className="modal-icon">
+                            <i className="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Message Sent!</h3>
+                        <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
+                        <button className="btn btn-primary" onClick={() => setShowModal(false)}>Close</button>
                     </div>
-                    <h3>Message Sent!</h3>
-                    <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
-                    <button className="btn btn-primary" onClick={() => setShowModal(false)}>Close</button>
-                </div>
-            </div>
+                </div>,
+                document.body
+            )}
         </section>
     );
 };

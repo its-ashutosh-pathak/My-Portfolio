@@ -4,7 +4,7 @@ A modern, responsive personal portfolio built with React and Vite, featuring a d
 
 ## Live
 
-Hosted on Vercel — [ashutoshpathak.vercel.app](https://ashutoshpathak.vercel.app)
+Hosted on Vercel — [itsashutoshpathak.vercel.app](https://itsashutoshpathak.vercel.app)
 
 ## Tech Stack
 

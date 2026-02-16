@@ -1,0 +1,46 @@
+{
+  "hash": "aa08079c",
+  "configHash": "9b21db15",
+  "lockfileHash": "f4a18a5c",
+  "browserHash": "0d777779",
+  "optimized": {
+    "react": {
+      "src": "../../react/index.js",
+      "file": "react.js",
+      "fileHash": "943a4f40",
+      "needsInterop": true
+    },
+    "react-dom": {
+      "src": "../../react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "06754037",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "abd9cc1c",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "8207de6e",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "15302f70",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-AQ3CSJIS": {
+      "file": "chunk-AQ3CSJIS.js"
+    },
+    "chunk-BSNCPAQV": {
+      "file": "chunk-BSNCPAQV.js"
+    }
+  }
+}

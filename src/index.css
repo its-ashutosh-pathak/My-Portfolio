@@ -701,6 +701,10 @@ section {
   margin-bottom: var(--spacing-sm);
 }
 
+.project-icon i {
+  color: #ffffff;
+}
+
 .project-card h3 {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-sm);

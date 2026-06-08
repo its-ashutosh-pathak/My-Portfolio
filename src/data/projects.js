@@ -1,6 +1,21 @@
 
 const projects = [
     {
+        title: 'Pulse',
+        date: 'Feb 2026 - Jun 2026',
+        icon: 'fas fa-music',
+        summary: 'Designed and developed Pulse, an ad-free, privacy-focused music streaming application built to deliver a seamless and modern listening experience without subscriptions or unnecessary complexity.',
+        bulletPoints: [
+            'Cross-Platform Architecture: Engineered entirely from the ground up using Flutter to deliver a unified, high-performance mobile experience.',
+            'Advanced Audio Integration: Integrated background audio services to ensure seamless, continuous playback and native lock-screen media controls.',
+            'State Management: Leveraged Riverpod to implement a scalable, clean, and robust state management architecture.',
+            'Core Functionality: Developed high-demand features including unlimited streaming, intuitive playlist management, and offline downloads for on-the-go listening.',
+            'End-to-End Delivery: Managed the entire product lifecycle from initial concept to public release, sharpening expertise in UI/UX design, performance optimization, and product delivery.'
+        ],
+        githubLink: 'https://github.com/its-ashutosh-pathak/Pulse',
+        techStack: ['Flutter', 'Dart', 'Firebase'],
+    },
+    {
         title: 'My Portfolio Website',
         date: 'Feb 2026 - Present',
         icon: 'fas fa-globe',

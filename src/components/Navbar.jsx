@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { client, urlFor } from '../client';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,11 @@ const Navbar = () => {
         const handleScroll = () => setScrolled(window.scrollY > 40);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const [settings, setSettings] = useState(null);
+    useEffect(() => {
+        client.fetch('*[_type == "siteSettings"][0]').then(setSettings);
     }, []);
 
     const toggleMenu = () => {
@@ -37,10 +43,14 @@ const Navbar = () => {
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
             <div className="nav-container">
                 <Link to="/" className="logo" onClick={closeMenu}>
-                    <img src="/images/profile.jpg" alt="Ashutosh Pathak" className="logo-img" />
+                    {settings?.profilePhoto ? (
+                        <img src={urlFor(settings.profilePhoto).width(100).url()} alt="Ashutosh Pathak" className="logo-img" />
+                    ) : (
+                        <div className="logo-img" style={{ background: '#333' }}></div>
+                    )}
                     <div className="logo-text-container">
-                        <span className="logo-text">ASHUTOSH</span>
-                        <span className="logo-accent">PATHAK</span>
+                        <span className="logo-text">{settings?.name?.split(' ')[0] || 'ASHUTOSH'}</span>
+                        <span className="logo-accent">{settings?.name?.split(' ')[1] || 'PATHAK'}</span>
                     </div>
                 </Link>
 

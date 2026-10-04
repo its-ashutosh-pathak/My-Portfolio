@@ -43,8 +43,8 @@ const Navbar = () => {
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
             <div className="nav-container">
                 <Link to="/" className="logo" onClick={closeMenu}>
-                    {settings?.profilePhoto ? (
-                        <img src={urlFor(settings.profilePhoto).width(100).url()} alt="Ashutosh Pathak" className="logo-img" />
+                    {(settings?.navbarPhoto || settings?.profilePhoto) ? (
+                        <img src={urlFor(settings.navbarPhoto || settings.profilePhoto).width(100).url()} alt="Ashutosh Pathak" className="logo-img" />
                     ) : (
                         <div className="logo-img" style={{ background: '#333' }}></div>
                     )}

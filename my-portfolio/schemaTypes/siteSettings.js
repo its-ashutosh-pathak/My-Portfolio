@@ -37,6 +37,12 @@ export default {
             options: { hotspot: true },
         },
         {
+            name: 'navbarPhoto',
+            title: 'Profile Photo (Navbar)',
+            type: 'image',
+            options: { hotspot: true },
+        },
+        {
             name: 'aboutProfilePhoto',
             title: 'Profile Photo (About Page)',
             type: 'image',
@@ -96,6 +102,21 @@ export default {
         {
             name: 'twitterUrl',
             title: 'Twitter / X URL',
+            type: 'url',
+        },
+        {
+            name: 'leetcodeUrl',
+            title: 'LeetCode URL',
+            type: 'url',
+        },
+        {
+            name: 'instagramUrl',
+            title: 'Instagram URL',
+            type: 'url',
+        },
+        {
+            name: 'whatsappUrl',
+            title: 'WhatsApp URL (e.g., https://wa.me/919871852159)',
             type: 'url',
         },
         {

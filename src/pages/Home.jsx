@@ -78,10 +78,17 @@ const Home = () => {
                                 <span>Get In Touch</span>
                                 <i className="fas fa-envelope"></i>
                             </Link>
-                            <a href="#home-projects" className="btn btn-secondary" id="heroViewWork">
-                                <span>View My Work</span>
-                                <i className="fas fa-arrow-down"></i>
-                            </a>
+                            {settings?.resumeUrl ? (
+                                <a href={settings.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                                    <span>Download Resume</span>
+                                    <i className="fas fa-file-pdf"></i>
+                                </a>
+                            ) : (
+                                <a href="#home-projects" className="btn btn-secondary" id="heroViewWork">
+                                    <span>View My Work</span>
+                                    <i className="fas fa-arrow-down"></i>
+                                </a>
+                            )}
                         </div>
 
                         <div className="hero-meta">

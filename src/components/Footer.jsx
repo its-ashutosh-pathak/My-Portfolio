@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { client } from '../client';
 
 const Footer = () => {
     const year = new Date().getFullYear();
+    const [settings, setSettings] = useState(null);
 
+    useEffect(() => {
+        client.fetch('*[_type == "siteSettings"][0]').then(setSettings);
+    }, []);
 
     return (
         <footer className="footer">
@@ -13,24 +18,36 @@ const Footer = () => {
                 </div>
 
                 <div className="social-links">
-                    <a href="https://www.linkedin.com/in/its-ashutosh-pathak" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
-                        <i className="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/its-ashutosh-pathak" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub">
-                        <i className="fab fa-github"></i>
-                    </a>
-                    <a href="https://leetcode.com/its-ashutosh-pathak/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LeetCode">
-                        <i className="fas fa-code"></i>
-                    </a>
-                    <a href="https://www.instagram.com/its_ashutosh_pathak/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
-                        <i className="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://wa.me/919871852159" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp">
-                        <i className="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashutoshpathakab@gmail.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Email">
-                        <i className="fas fa-envelope"></i>
-                    </a>
+                    {settings?.linkedinUrl && (
+                        <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
+                            <i className="fab fa-linkedin-in"></i>
+                        </a>
+                    )}
+                    {settings?.githubUrl && (
+                        <a href={settings.githubUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub">
+                            <i className="fab fa-github"></i>
+                        </a>
+                    )}
+                    {settings?.leetcodeUrl && (
+                        <a href={settings.leetcodeUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LeetCode">
+                            <i className="fas fa-code"></i>
+                        </a>
+                    )}
+                    {settings?.instagramUrl && (
+                        <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
+                            <i className="fab fa-instagram"></i>
+                        </a>
+                    )}
+                    {settings?.whatsappUrl && (
+                        <a href={settings.whatsappUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp">
+                            <i className="fab fa-whatsapp"></i>
+                        </a>
+                    )}
+                    {settings?.email && (
+                        <a href={`mailto:${settings.email}`} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Email">
+                            <i className="fas fa-envelope"></i>
+                        </a>
+                    )}
                 </div>
 
                 <p className="footer-copy" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

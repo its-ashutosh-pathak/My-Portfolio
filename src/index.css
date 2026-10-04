@@ -681,6 +681,10 @@ section {
     order: -1;
   }
 
+  .hero-subtitle {
+    justify-content: center;
+  }
+
   .profile-image-wrapper {
     width: 200px;
     height: 220px;

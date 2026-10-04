@@ -158,7 +158,12 @@ const About = () => {
                                         </ul>
                                     )}
                                     {job.link && (
-                                        <p>Live link: <a href={job.link} target="_blank" rel="noopener noreferrer" style={{ color: '#46a3ff' }}>{job.link}</a></p>
+                                        <div style={{ marginTop: '1.2rem', marginBottom: '0.5rem' }}>
+                                            <a href={job.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}>
+                                                <span>Live Link</span>
+                                                <i className="fas fa-external-link-alt"></i>
+                                            </a>
+                                        </div>
                                     )}
                                     {job.techStack?.length > 0 && (
                                         <div className="skill-tags" style={{ marginTop: '1rem' }}>

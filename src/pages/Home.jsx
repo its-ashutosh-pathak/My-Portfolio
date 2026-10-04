@@ -84,48 +84,30 @@ const Home = () => {
                             </a>
                         </div>
 
-                        <div className="hero-links">
-                            {settings?.githubUrl && (
-                                <a href={settings.githubUrl} target="_blank" rel="noopener noreferrer" className="hero-link" id="heroGithub">
-                                    <i className="fab fa-github"></i>
-                                </a>
-                            )}
-                            {settings?.linkedinUrl && (
-                                <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hero-link" id="heroLinkedin">
-                                    <i className="fab fa-linkedin"></i>
-                                </a>
-                            )}
-                            {settings?.twitterUrl && (
-                                <a href={settings.twitterUrl} target="_blank" rel="noopener noreferrer" className="hero-link" id="heroTwitter">
-                                    <i className="fab fa-twitter"></i>
-                                </a>
-                            )}
+                        <div className="hero-meta">
+                            {settings?.stats?.map((stat, i) => (
+                                <div className="hero-stat" key={i}>
+                                    <span className="hero-stat-num">{stat.value}</span>
+                                    <span className="hero-stat-label">{stat.label}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
-                    <div className="hero-meta">
-                        {settings?.stats?.map((stat, i) => (
-                            <div className="hero-stat" key={i}>
-                                <span className="hero-stat-num">{stat.value}</span>
-                                <span className="hero-stat-label">{stat.label}</span>
+                    <div className="hero-visual">
+                        <div className="profile-wrap">
+                            <div className="profile-ring"></div>
+                            <div className="profile-image-wrapper">
+                                {settings?.profilePhoto ? (
+                                    <img src={urlFor(settings.profilePhoto).width(400).url()} alt={settings.name} className="profile-image" />
+                                ) : (
+                                    <img src="/images/profile.jpg" alt="Ashutosh Pathak" className="profile-image" />
+                                )}
                             </div>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="hero-visual">
-                    <div className="profile-wrap">
-                        <div className="profile-ring"></div>
-                        <div className="profile-image-wrapper">
-                            {settings?.profilePhoto ? (
-                                <img src={urlFor(settings.profilePhoto).width(400).url()} alt={settings.name} className="profile-image" />
-                            ) : (
-                                <img src="/images/profile.jpg" alt="Ashutosh Pathak" className="profile-image" />
-                            )}
-                        </div>
-                        <div className="profile-badge">
-                            <i className="fas fa-map-marker-alt"></i>
-                            <span>{settings?.location || 'Delhi, India'}</span>
+                            <div className="profile-badge">
+                                <i className="fas fa-map-marker-alt"></i>
+                                <span>{settings?.location || 'Delhi, India'}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

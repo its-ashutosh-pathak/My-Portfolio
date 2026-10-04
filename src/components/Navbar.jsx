@@ -7,25 +7,16 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
-
+        const handleScroll = () => setScrolled(window.scrollY > 40);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const toggleMenu = () => {
-        setIsOpen(!isOpen);
-        if (!isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+        setIsOpen(prev => {
+            document.body.style.overflow = prev ? '' : 'hidden';
+            return !prev;
+        });
     };
 
     const closeMenu = () => {
@@ -33,16 +24,20 @@ const Navbar = () => {
         document.body.style.overflow = '';
     };
 
-    // Close menu when route changes
-    useEffect(() => {
-        closeMenu();
-    }, [location]);
+    useEffect(() => { closeMenu(); }, [location]);
+
+    const links = [
+        { to: '/', label: 'Home' },
+        { to: '/about', label: 'About' },
+        { to: '/projects', label: 'Projects' },
+        { to: '/blog', label: 'Blog' },
+    ];
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
             <div className="nav-container">
                 <Link to="/" className="logo" onClick={closeMenu}>
-                    <img src="/images/profile.jpg" alt="Profile" className="logo-img" />
+                    <img src="/images/profile.jpg" alt="Ashutosh Pathak" className="logo-img" />
                     <div className="logo-text-container">
                         <span className="logo-text">ASHUTOSH</span>
                         <span className="logo-accent">PATHAK</span>
@@ -50,10 +45,23 @@ const Navbar = () => {
                 </Link>
 
                 <div className={`nav-menu ${isOpen ? 'active' : ''}`} id="navMenu">
-                    <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
-                    <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link>
-                    <Link to="/projects" className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}>Projects</Link>
-                    <Link to="/contact" className="nav-link nav-cta">Contact</Link>
+                    {links.map(({ to, label }) => (
+                        <Link
+                            key={to}
+                            to={to}
+                            className={`nav-link ${location.pathname === to ? 'active' : ''}`}
+                            onClick={closeMenu}
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                    <Link
+                        to="/contact"
+                        className={`nav-link nav-cta ${location.pathname === '/contact' ? 'active' : ''}`}
+                        onClick={closeMenu}
+                    >
+                        Contact
+                    </Link>
                 </div>
 
                 <button

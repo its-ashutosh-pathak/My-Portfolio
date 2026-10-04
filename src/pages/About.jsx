@@ -149,13 +149,16 @@ const About = () => {
                                 <div className="timeline-content">
                                     <h4>{job.role}</h4>
                                     <div className="timeline-meta">
-                                        {[job.company, job.type, job.period].filter(Boolean).join(' · ')}
+                                        {[job.company, job.type, job.period, job.location].filter(Boolean).join(' · ')}
                                     </div>
                                     {job.description && <p>{job.description}</p>}
                                     {job.bulletPoints?.length > 0 && (
                                         <ul>
                                             {job.bulletPoints.map((b, j) => <li key={j}>{b}</li>)}
                                         </ul>
+                                    )}
+                                    {job.link && (
+                                        <p>Live link: <a href={job.link} target="_blank" rel="noopener noreferrer" style={{ color: '#46a3ff' }}>{job.link}</a></p>
                                     )}
                                     {job.techStack?.length > 0 && (
                                         <div className="skill-tags" style={{ marginTop: '1rem' }}>

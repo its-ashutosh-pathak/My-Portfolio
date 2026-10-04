@@ -22,6 +22,12 @@ export default {
             description: 'e.g., Jan 2026 – Feb 2026',
         },
         {
+            name: 'location',
+            title: 'Location',
+            type: 'string',
+            description: 'e.g., Delhi, India · Remote',
+        },
+        {
             name: 'type',
             title: 'Employment Type',
             type: 'string',
@@ -40,6 +46,12 @@ export default {
             title: 'Key Responsibilities / Achievements',
             type: 'array',
             of: [{ type: 'string' }],
+        },
+        {
+            name: 'link',
+            title: 'Project / Company Link',
+            type: 'url',
+            description: 'Optional link to the company or the project you worked on',
         },
         {
             name: 'techStack',

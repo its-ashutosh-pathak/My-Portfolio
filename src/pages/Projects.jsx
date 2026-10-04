@@ -1,56 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import projects from '../data/projects';
+import { client, urlFor } from '../client';
 import ProjectModal from '../components/ProjectModal';
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        client.fetch(`*[_type == "project"] | order(_createdAt asc)`).then(setProjects);
+    }, []);
 
     return (
-        <section id="projects" className="projects">
-            <div className="container">
-                <h2 className="section-title reveal-up revealed" style={{ marginBottom: '1rem' }}>
-                    My Projects
-                </h2>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1.1rem', maxWidth: '800px' }}>
-                    These projects represent my hands-on experience in software development and my continuous effort to apply theoretical knowledge into practical solutions. Each project demonstrates my ability to design, develop, and deploy applications using modern technologies.
-                </p>
+        <>
+            <section className="projects-hero">
+                <div className="container">
+                    <span className="section-tag"><i className="fas fa-code"></i> Projects</span>
+                    <h1 className="section-title">Things I've built</h1>
+                    <p className="section-subtitle">
+                        Projects that demonstrate my ability to design, develop, and ship applications
+                        using modern technologies — from idea to deployment.
+                    </p>
 
-                <div className="projects-grid">
-                    {projects.map((project, index) => (
-                        <div
-                            key={index}
-                            className={`project-card reveal-up ${index > 0 ? `delay-${index}` : ''} revealed`}
-                            onClick={() => setSelectedProject(project)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <div className="project-icon">
-                                <i className={project.icon}></i>
+                    <div className="education-grid" style={{ marginTop: '2.5rem', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
+                        {projects.map((project, index) => (
+                            <div
+                                key={project._id}
+                                className="edu-card"
+                                onClick={() => setSelectedProject(project)}
+                                id={`project${index}`}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <img
+                                    src={project.img ? urlFor(project.img).width(600).url() : ''}
+                                    alt={project.title}
+                                    className="edu-card-img"
+                                />
+                                <div className="edu-card-overlay"></div>
+                                <div className="edu-card-content">
+                                    <div className="edu-card-period" style={{ color: 'var(--accent)' }}>{project.date}</div>
+                                    <div className="edu-card-degree" style={{ fontSize: '1.2rem', marginBottom: '8px' }}>{project.title}</div>
+                                    <div className="edu-card-field">{project.field}</div>
+                                    <div className="edu-card-institution" style={{ opacity: 0.8, marginTop: '8px' }}>
+                                        {project.techStack?.slice(0, 3).join(' · ')}
+                                        {project.techStack?.length > 3 && ` · +${project.techStack.length - 3}`}
+                                    </div>
+                                </div>
                             </div>
-                            <h3>{project.title}</h3>
-                            <p className="timeline-meta" style={{ marginBottom: '0.5rem' }}>{project.date}</p>
-                            <p>{project.summary}</p>
-                            <div className="project-card-toggle">
-                                <span>Tap to view more</span>
-                                <i className="fas fa-chevron-right"></i>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+            </section>
 
-                <div className="about-cta reveal-up" style={{ marginTop: '3rem' }}>
-                    <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Have an idea, a project, or an opportunity? Let's turn it into something real.</p>
-                    <Link to="/contact" className="btn btn-secondary">
-                        <span>Contact Me</span>
-                        <i className="fas fa-envelope"></i>
+            {/* ── CTA ── */}
+            <section style={{ paddingTop: 0, paddingBottom: '5rem' }}>
+                <div className="container" style={{ textAlign: 'center' }}>
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '1rem' }}>
+                        Want to see what goes on behind the scenes? Check out my latest thoughts and builds.
+                    </p>
+                    <Link to="/blog" className="btn btn-primary" id="projectsToBlog">
+                        <span>Read My Blog</span>
+                        <i className="fas fa-pen-nib"></i>
                     </Link>
                 </div>
-            </div>
+            </section>
 
             {selectedProject && (
                 <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
             )}
-        </section>
+        </>
     );
 };
 

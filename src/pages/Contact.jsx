@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { client } from '../client';
 
 const Contact = () => {
     const [showToast, setShowToast] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [settings, setSettings] = useState(null);
+
+    useEffect(() => {
+        client.fetch('*[_type == "siteSettings"][0]').then(setSettings);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,7 +21,7 @@ const Contact = () => {
         formData.append('_template', 'table');
 
         try {
-            await fetch('https://formsubmit.co/ajax/ashutoshpathakab@gmail.com', {
+            await fetch(`https://formsubmit.co/ajax/${settings?.email || 'ashutoshpathakab@gmail.com'}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -47,45 +53,61 @@ const Contact = () => {
                             <p>I typically respond within 24 hours. Drop a message or reach out directly.</p>
 
                             <div className="contact-methods">
-                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashutoshpathakab@gmail.com" target="_blank" rel="noopener noreferrer" className="contact-method" id="contactEmail">
-                                    <i className="fas fa-envelope"></i>
-                                    <div>
-                                        <h4>Email</h4>
-                                        <p>ashutoshpathakab@gmail.com</p>
+                                {settings?.email && (
+                                    <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${settings.email}`} target="_blank" rel="noopener noreferrer" className="contact-method" id="contactEmail">
+                                        <i className="fas fa-envelope"></i>
+                                        <div>
+                                            <h4>Email</h4>
+                                            <p>{settings.email}</p>
+                                        </div>
+                                    </a>
+                                )}
+                                {settings?.phone && (
+                                    <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="contact-method" id="contactPhone">
+                                        <i className="fas fa-phone"></i>
+                                        <div>
+                                            <h4>Phone</h4>
+                                            <p>{settings.phone}</p>
+                                        </div>
+                                    </a>
+                                )}
+                                {settings?.location && (
+                                    <div className="contact-method">
+                                        <i className="fas fa-map-marker-alt"></i>
+                                        <div>
+                                            <h4>Location</h4>
+                                            <p>{settings.location}</p>
+                                        </div>
                                     </div>
-                                </a>
-                                <a href="tel:+919871852159" className="contact-method" id="contactPhone">
-                                    <i className="fas fa-phone"></i>
-                                    <div>
-                                        <h4>Phone</h4>
-                                        <p>+91 98718 52159</p>
-                                    </div>
-                                </a>
-                                <div className="contact-method">
-                                    <i className="fas fa-map-marker-alt"></i>
-                                    <div>
-                                        <h4>Location</h4>
-                                        <p>Delhi, India</p>
-                                    </div>
-                                </div>
+                                )}
                             </div>
 
                             <div className="social-links">
-                                <a href="https://www.linkedin.com/in/its-ashutosh-pathak" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn" id="socialLinkedin">
-                                    <i className="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="https://github.com/its-ashutosh-pathak" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub" id="socialGithub">
-                                    <i className="fab fa-github"></i>
-                                </a>
-                                <a href="https://leetcode.com/its-ashutosh-pathak/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LeetCode" id="socialLeetcode">
-                                    <i className="fas fa-code"></i>
-                                </a>
-                                <a href="https://www.instagram.com/its_ashutosh_pathak/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram" id="socialInstagram">
-                                    <i className="fab fa-instagram"></i>
-                                </a>
-                                <a href="https://wa.me/919871852159" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp" id="socialWhatsapp">
-                                    <i className="fab fa-whatsapp"></i>
-                                </a>
+                                {settings?.linkedinUrl && (
+                                    <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn" id="socialLinkedin">
+                                        <i className="fab fa-linkedin-in"></i>
+                                    </a>
+                                )}
+                                {settings?.githubUrl && (
+                                    <a href={settings.githubUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub" id="socialGithub">
+                                        <i className="fab fa-github"></i>
+                                    </a>
+                                )}
+                                {settings?.leetcodeUrl && (
+                                    <a href={settings.leetcodeUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LeetCode" id="socialLeetcode">
+                                        <i className="fas fa-code"></i>
+                                    </a>
+                                )}
+                                {settings?.instagramUrl && (
+                                    <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram" id="socialInstagram">
+                                        <i className="fab fa-instagram"></i>
+                                    </a>
+                                )}
+                                {settings?.whatsappUrl && (
+                                    <a href={settings.whatsappUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp" id="socialWhatsapp">
+                                        <i className="fab fa-whatsapp"></i>
+                                    </a>
+                                )}
                             </div>
                         </div>
 

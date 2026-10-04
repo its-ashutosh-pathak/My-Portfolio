@@ -100,11 +100,6 @@ export default {
             type: 'url',
         },
         {
-            name: 'twitterUrl',
-            title: 'Twitter / X URL',
-            type: 'url',
-        },
-        {
             name: 'leetcodeUrl',
             title: 'LeetCode URL',
             type: 'url',

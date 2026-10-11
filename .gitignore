@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 public/images/
+
+# Environment variables — never commit
+.env
+.env.*
